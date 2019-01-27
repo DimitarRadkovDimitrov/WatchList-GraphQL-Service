@@ -1,13 +1,13 @@
-module Types
-  class QueryType < Types::BaseObject
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+require_relative '../queries/movie_queries'
+require_relative '../queries/tv_show_queries'
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+module Types
+    class QueryType < Types::BaseObject
+        include MovieQueries
+        include TvShowQueries
+        field :all_movies, [MovieType], null: false, description: "Get all movies"
+        field :popular_tv_shows, BaseScalar, null: false, description: "Get list of popular tv shows"
+        field :top_rated_tv_shows, BaseScalar, null: false, description: "Get list of top rated tv shows"
+        field :on_air_tv_shows, BaseScalar, null: false, description: "Get list of tv shows on air in last 7 days"
     end
-  end
 end
