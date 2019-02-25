@@ -1,3 +1,4 @@
+require_relative '../queries/person_queries'
 require_relative '../queries/movie_queries'
 require_relative '../queries/tv_show_queries'
 require_relative '../../models/tv_show'
@@ -7,6 +8,7 @@ module Types
     class QueryType < Types::BaseObject
         include MovieQueries
         include TvShowQueries
+        include PersonQueries
 
         field :movie_by_id, Movie::GraphQLType, null: false, description: "Get movie details by movie id" do
             argument :id, Integer, required: true
@@ -22,5 +24,9 @@ module Types
         field :popular_tv_shows, [TvShow::GraphQLType], null: false, description: "Get list of popular tv shows"
         field :top_rated_tv_shows, [TvShow::GraphQLType], null: false, description: "Get list of top rated tv shows"
         field :on_air_tv_shows, [TvShow::GraphQLType], null: false, description: "Get list of tv shows on air in last 7 days"
+
+        field :person_by_id, Person::GraphQLType, null: false, description: "Get person details by person id" do
+            argument :id, Integer, required: true
+        end 
     end
 end

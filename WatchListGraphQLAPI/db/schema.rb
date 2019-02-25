@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_26_192705) do
+ActiveRecord::Schema.define(version: 2019_02_25_214018) do
 
   create_table "movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 2019_01_26_192705) do
     t.string "backdrop_path"
     t.float "vote_average"
     t.float "popularity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.text "biography"
+    t.string "birthday"
+    t.string "deathday"
+    t.float "popularity"
+    t.string "known_for_department"
+    t.string "place_of_birth"
+    t.string "profile_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
