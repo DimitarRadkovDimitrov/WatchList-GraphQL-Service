@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ProfileScreen extends React.Component 
+export default class ProfileScreen extends React.Component 
 {
     render() 
     {
@@ -9,5 +9,3 @@ class ProfileScreen extends React.Component
         );
     }
 }
-
-export default ProfileScreen;

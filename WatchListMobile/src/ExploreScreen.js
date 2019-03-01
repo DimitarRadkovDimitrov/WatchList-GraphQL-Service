@@ -1,13 +1,18 @@
 import React from 'react';
+import {View, AppRegistry, ScrollView, Image, Text} from 'react-native';
+import RecordList from './Components/RecordList';
 
-class ExploreScreen extends React.Component 
+export default class ExploreScreen extends React.Component 
 {
     render() 
     {
         return (
-            null
+            <View>
+                <RecordList header='Popular' queryName='popularMovies'/>
+                <RecordList header='Top Rated' queryName='topRatedMovies'/>
+                <RecordList header='Now Playing' queryName='nowPlayingMovies'/>
+                <RecordList header='Upcoming' queryName='upcomingMovies'/>  
+            </View>
         );
     }
 }
-
-export default ExploreScreen;
