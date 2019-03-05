@@ -1,4 +1,5 @@
 import React from 'react';
+import {AppRegistry} from 'react-native';
 
 export default class ProfileScreen extends React.Component 
 {
@@ -9,3 +10,5 @@ export default class ProfileScreen extends React.Component
         );
     }
 }
+
+AppRegistry.registerComponent("ProfileScreen", () => ProfileScreen);

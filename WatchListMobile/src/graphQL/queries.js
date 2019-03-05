@@ -1,4 +1,6 @@
-export const popularMovies = `
+import gql from 'graphql-tag';
+
+export const popularMovies = gql`
 {
     popularMovies
     {
@@ -6,10 +8,9 @@ export const popularMovies = `
         title
         poster_path
     }
-}
-`
+}`;
 
-export const topRatedMovies = `
+export const topRatedMovies = gql`
 {
     topRatedMovies
     {
@@ -17,10 +18,9 @@ export const topRatedMovies = `
         title
         poster_path
     }
-}
-`
+}`;
 
-export const nowPlayingMovies = `
+export const nowPlayingMovies = gql`
 {
     nowPlayingMovies
     {
@@ -28,10 +28,9 @@ export const nowPlayingMovies = `
         title
         poster_path
     }
-}
-`
+}`;
 
-export const upcomingMovies = `
+export const upcomingMovies = gql`
 {
     upcomingMovies
     {
@@ -39,5 +38,4 @@ export const upcomingMovies = `
         title
         poster_path
     }
-}
-`
+}`;
