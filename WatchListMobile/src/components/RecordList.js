@@ -9,11 +9,13 @@ export default class RecordList extends React.Component
     constructor(props)
     {
         super(props);
+        this.handleRecordClick = this.handleRecordClick.bind(this);
     }
 
-    imageOnClick = () => {
-        console.log("ON CLICK");
-    };
+    handleRecordClick(e)
+    {
+        this.props.handleRecordClick(e.target.value);
+    }
     
     render()
     {
@@ -46,7 +48,7 @@ export default class RecordList extends React.Component
                                 data[this.props.queryName].map((record) => {
                                     recordImgSrc = `https://image.tmdb.org/t/p/w92${record.poster_path}`;
                                     return(
-                                        <TouchableHighlight key={record.id} onPress={this.imageOnClick}>
+                                        <TouchableHighlight key={record.id} onPress={this.handleRecordClick}>
                                             <Image source={{uri: recordImgSrc, width: 90, height: 125}} />
                                         </TouchableHighlight>     
                                     );

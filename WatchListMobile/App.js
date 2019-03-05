@@ -1,24 +1,20 @@
-import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
+import React from "react";
+import {ApolloProvider} from 'react-apollo';
 import ApolloClient from 'apollo-boost';
-import ExploreScreen from './src/ExploreScreen';
-import ProfileScreen from './src/ProfileScreen';
+import TabbedAppContainer from './src/navigators/TabNavigator';
 
-export const client = new ApolloClient({
-  uri: 'http://10.0.2.2:3000/graphql'
+const apolloClient = new ApolloClient({
+    uri: 'http://10.0.2.2:3000/graphql'
 });
 
-const TabNavigator = createBottomTabNavigator(
-  {
-      Explore: ExploreScreen,
-      Profile: ProfileScreen,
-  },
-  {
-    tabBarOptions: 
+export default class App extends React.Component
+{
+    render()
     {
-        activeTintColor: 'tomato',   
-        inactiveTintColor: 'black',
-    },
-  },
-);
-
-export default createAppContainer(TabNavigator);
+        return(
+            <ApolloProvider client={apolloClient}>  
+                <TabbedAppContainer/>
+            </ApolloProvider>
+        );
+    }
+}
