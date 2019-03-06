@@ -1,7 +1,10 @@
 import React from 'react';
-import {View, ScrollView, AppRegistry} from 'react-native';
+import {Text, View, ScrollView, ActivityIndicator, AppRegistry} from 'react-native';
+import {Query} from 'react-apollo';
 import {ButtonGroup} from 'react-native-elements';
+import {getImgSrcFromPath} from '../util/images';
 import RecordList from '../components/RecordList';
+import * as queries from '../graphQL/queries';
 
 export default class ExploreContainer extends React.Component 
 {
@@ -26,7 +29,7 @@ export default class ExploreContainer extends React.Component
     {
         this.props.navigation.navigate('RecordContainer', {
             'record': record,
-            'recordType': record['recordType'],
+            'recordType': record['type'],
         });
     }
 
@@ -38,60 +41,21 @@ export default class ExploreContainer extends React.Component
         if (this.state.selectedIndex == 0)
         {
             view = 
-            <View>
-                <ScrollView>
-                    <RecordList 
-                        header='Popular' 
-                        queryName='popularMovies' 
-                        recordType='movie' 
-                        handleRecordClick={this.handleRecordClick}
-                    />
-                    <RecordList 
-                        header='Top Rated' 
-                        queryName='topRatedMovies' 
-                        recordType='movie' 
-                        handleRecordClick={this.handleRecordClick}
-                    />
-                    <RecordList
-                        header='Now Playing'
-                        queryName='nowPlayingMovies'
-                        recordType='movie'
-                        handleRecordClick={this.handleRecordClick}
-                    />
-                    <RecordList 
-                        header='Upcoming' 
-                        queryName='upcomingMovies' 
-                        recordType='movie' 
-                        handleRecordClick={this.handleRecordClick}
-                    />  
-                </ScrollView>
-            </View>;
+            <ScrollView>
+                <MovieListQuery header="Popular" queryName="popularMovies" handleRecordClick={this.handleRecordClick} />
+                <MovieListQuery header="Top Rated" queryName='topRatedMovies' handleRecordClick={this.handleRecordClick} />
+                <MovieListQuery header="Now Playing" queryName='nowPlayingMovies' handleRecordClick={this.handleRecordClick} />
+                <MovieListQuery header="Upcoming" queryName='upcomingMovies' handleRecordClick={this.handleRecordClick} />
+            </ScrollView>;
         }
         else
         {
             view = 
-            <View>
-                <ScrollView>
-                    <RecordList 
-                        header='Popular' 
-                        queryName='popularTvShows' 
-                        recordType='tvShow' 
-                        handleRecordClick={this.handleRecordClick}
-                    />
-                    <RecordList 
-                        header='Top Rated' 
-                        queryName='topRatedTvShows' 
-                        recordType='tvShow' 
-                        handleRecordClick={this.handleRecordClick}
-                    />
-                    <RecordList 
-                        header='On Air' 
-                        queryName='onAirTvShows' 
-                        recordType='tvShow' 
-                        handleRecordClick={this.handleRecordClick}
-                    />  
-                </ScrollView>
-            </View>;
+            <ScrollView>
+                <TvListQuery header="Popular" queryName="popularTvShows" handleRecordClick={this.handleRecordClick} />
+                <TvListQuery header="Top Rated" queryName='topRatedTvShows' handleRecordClick={this.handleRecordClick} />
+                <TvListQuery header="On Air" queryName='onAirTvShows' handleRecordClick={this.handleRecordClick} />
+            </ScrollView>;
         }
 
         return(
@@ -105,6 +69,96 @@ export default class ExploreContainer extends React.Component
             </View>
         );
     }
+}
+
+function MovieListQuery(props)
+{
+    return(
+        <Query query={queries[props.queryName]}>
+        {
+            ({loading, error, data}) => {
+                if (loading)
+                {
+                    return(
+                        <View style={{flex: 1, padding: 20}}>
+                            <ActivityIndicator/>
+                        </View>
+                    );
+                }
+                if (error)
+                {
+                    return(
+                        <View>
+                            <Text>{error.message}</Text>
+                        </View>
+                    );
+                }
+
+                let records = data[props.queryName];
+                records['type'] = 'movie';
+                records = assignRecordContext(records);
+
+                return(
+                    <RecordList 
+                        header={props.header} 
+                        records={records} 
+                        handleRecordClick={props.handleRecordClick}
+                    />
+                );
+            }
+        }
+        </Query>
+    );
+}
+
+function TvListQuery(props)
+{
+    return(
+        <Query query={queries[props.queryName]}>
+        {
+            ({loading, error, data}) => {
+                if (loading)
+                {
+                    return(
+                        <View style={{flex: 1, padding: 20}}>
+                            <ActivityIndicator/>
+                        </View>
+                    );
+                }
+                if (error)
+                {
+                    return(
+                        <View>
+                            <Text>{error.message}</Text>
+                        </View>
+                    );
+                }
+
+                let records = data[props.queryName];
+                records['type'] = 'tvShow';
+                records = assignRecordContext(records);
+
+                return(
+                    <RecordList 
+                        header={props.header} 
+                        records={records}
+                        handleRecordClick={props.handleRecordClick}
+                    />
+                );
+            }
+        }
+        </Query>
+    );
+}
+
+function assignRecordContext(records)
+{
+    const recordType = records['type'];
+    records.map((record) => {
+        record['imgSrc'] = getImgSrcFromPath(record['poster_path']);
+        record['type'] = recordType;
+    });
+    return records;
 }
 
 AppRegistry.registerComponent('ExploreContainer', () => ExploreContainer);

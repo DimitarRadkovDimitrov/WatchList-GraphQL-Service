@@ -1,5 +1,37 @@
 import gql from 'graphql-tag';
 
+export const movieById = (id) => {
+    return gql`
+    {
+        movieById(id: ${id})
+        {
+            id
+            title
+            overview
+            popularity
+            backdrop_path
+            poster_path
+            vote_average
+        }
+    }`
+};
+
+export const tvShowById = (id) => {
+    return gql`
+    {
+        tvShowById(id: ${id})
+        {
+            id
+            name
+            overview
+            popularity
+            backdrop_path
+            poster_path
+            vote_average
+        }
+    }`
+};
+
 export const popularMovies = gql`
 {
     popularMovies
