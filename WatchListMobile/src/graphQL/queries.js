@@ -39,3 +39,33 @@ export const upcomingMovies = gql`
         poster_path
     }
 }`;
+
+export const popularTvShows = gql`
+{
+    popularTvShows
+    {
+        id
+        name
+        poster_path
+    }
+}`;
+
+export const topRatedTvShows = gql`
+{
+    topRatedTvShows
+    {
+        id
+        name
+        poster_path
+    }
+}`;
+
+export const onAirTvShows = gql`
+{
+    onAirTvShows
+    {
+        id
+        name
+        poster_path
+    }
+}`;

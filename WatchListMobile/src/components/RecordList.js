@@ -48,7 +48,7 @@ export default class RecordList extends React.Component
                                 data[this.props.queryName].map((record) => { 
                                     recordImgSrc = `https://image.tmdb.org/t/p/w92${record.poster_path}`;
                                     record['fullImgSrc'] = recordImgSrc;
-                                    record['recordType'] = 'movie';
+                                    record['recordType'] = this.props.recordType;
 
                                     return(
                                         <TouchableHighlight key={record.id} onPress={this.handleRecordClick.bind(this, record)}>
