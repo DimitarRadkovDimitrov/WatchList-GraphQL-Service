@@ -12,9 +12,9 @@ export default class RecordList extends React.Component
         this.handleRecordClick = this.handleRecordClick.bind(this);
     }
 
-    handleRecordClick(e)
+    handleRecordClick(record)
     {
-        this.props.handleRecordClick(e.target.value);
+        this.props.handleRecordClick(record);
     }
     
     render()
@@ -45,11 +45,14 @@ export default class RecordList extends React.Component
                             <Text>{this.props.header}</Text>
                             <ScrollView horizontal>
                             {
-                                data[this.props.queryName].map((record) => {
+                                data[this.props.queryName].map((record) => { 
                                     recordImgSrc = `https://image.tmdb.org/t/p/w92${record.poster_path}`;
+                                    record['fullImgSrc'] = recordImgSrc;
+                                    record['recordType'] = 'movie';
+
                                     return(
-                                        <TouchableHighlight key={record.id} onPress={this.handleRecordClick}>
-                                            <Image source={{uri: recordImgSrc, width: 90, height: 125}} />
+                                        <TouchableHighlight key={record.id} onPress={this.handleRecordClick.bind(this, record)}>
+                                            <Image source={{uri: record['fullImgSrc'], width: 90, height: 125}} />
                                         </TouchableHighlight>     
                                     );
                                 })

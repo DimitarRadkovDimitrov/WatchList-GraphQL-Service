@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, AppRegistry} from 'react-native';
+import {View, Text, Image, AppRegistry} from 'react-native';
 
 export default class RecordDetails extends React.Component
 {
@@ -10,7 +10,11 @@ export default class RecordDetails extends React.Component
 
     render()
     {
-        return(<Text>Dimitar</Text>);
+        return(
+            <View>
+                <Text>Record Details</Text>
+            </View>    
+        );
     }
 }
 

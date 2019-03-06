@@ -10,9 +10,12 @@ export default class ExploreContainer extends React.Component
         this.handleRecordClick = this.handleRecordClick.bind(this);
     }
 
-    handleRecordClick()
+    handleRecordClick(record)
     {
-        this.props.navigation.navigate('RecordDetails');
+        this.props.navigation.navigate('RecordContainer', {
+            'record': record,
+            'recordType': record['recordType'],
+        });
     }
 
     render() 
