@@ -2,7 +2,7 @@ require_relative '../graphql/graphQL_type_generator'
 require_relative '../graphql/queries/person_queries'
 
 class Movie < ApplicationRecord
-    has_and_belongs_to_many :people
+    has_many :people
 
     include ActiveModel::Serializers::JSON
     include PersonQueries

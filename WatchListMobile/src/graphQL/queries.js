@@ -12,6 +12,12 @@ export const movieById = (id) => {
             backdrop_path
             poster_path
             vote_average
+            people
+            {
+                id
+                name
+                profile_path
+            }
         }
     }`
 };
@@ -28,6 +34,12 @@ export const tvShowById = (id) => {
             backdrop_path
             poster_path
             vote_average
+            people
+            {
+                id
+                name
+                profile_path
+            }
         }
     }`
 };

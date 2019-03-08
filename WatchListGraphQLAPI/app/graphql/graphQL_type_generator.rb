@@ -8,7 +8,7 @@ class GraphQLTypeGenerator
                 field(column.name, GraphQLTypeGenerator.get_scalar_from_mysql_type(column.type))
             end
 
-            for associatedType in model_class.reflect_on_all_associations(:has_and_belongs_to_many)
+            for associatedType in model_class.reflect_on_all_associations(:has_many)
                 model_name = associatedType.name.to_s()
                 model_graphql_type = GraphQLTypeGenerator.get_graphql_type_from_model_name(model_name.capitalize().singularize())
                 field(model_name, model_graphql_type.to_list_type())

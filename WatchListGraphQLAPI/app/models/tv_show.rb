@@ -2,7 +2,7 @@ require_relative '../graphql/graphQL_type_generator'
 require_relative '../graphql/queries/person_queries'
 
 class TvShow < ApplicationRecord
-    has_and_belongs_to_many :people
+    has_many :people
     serialize :created_by, Array
 
     include ActiveModel::Serializers::JSON
