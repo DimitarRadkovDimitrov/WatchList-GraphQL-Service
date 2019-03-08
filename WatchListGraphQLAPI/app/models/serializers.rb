@@ -9,9 +9,9 @@ class Serializers
         return modelObject
     end
     
-    def self.serialize_json_array_to_type(json, type)
+    def self.serialize_json_array_to_type(json, type, fieldName)
         modelObjectList = Array.new
-        for jsonObjectHash in json.parse()['results']
+        for jsonObjectHash in json.parse()[fieldName]
             modelObject = type.new
             availableFields = modelObject.attribute_names
             modelObject.from_json(jsonObjectHash.to_json(only: availableFields))

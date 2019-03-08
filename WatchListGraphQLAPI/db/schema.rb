@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_160844) do
+ActiveRecord::Schema.define(version: 2019_03_08_170819) do
 
   create_table "movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 2019_03_07_160844) do
     t.string "profile_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "people_tv_shows", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "tv_show_id", null: false
+    t.bigint "person_id", null: false
+    t.index ["person_id", "tv_show_id"], name: "index_people_tv_shows_on_person_id_and_tv_show_id"
+    t.index ["tv_show_id", "person_id"], name: "index_people_tv_shows_on_tv_show_id_and_person_id"
   end
 
   create_table "tv_shows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

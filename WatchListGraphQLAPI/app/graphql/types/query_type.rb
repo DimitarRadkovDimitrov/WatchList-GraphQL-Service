@@ -3,6 +3,7 @@ require_relative '../queries/movie_queries'
 require_relative '../queries/tv_show_queries'
 require_relative '../../models/tv_show'
 require_relative '../../models/movie'
+require_relative '../../models/person'
 
 module Types
     class QueryType < Types::BaseObject
