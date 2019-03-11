@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, ScrollView, ActivityIndicator, AppRegistry} from 'react-native';
 import {Query} from 'react-apollo';
 import {ButtonGroup} from 'react-native-elements';
-import {imgSrcField, recordTypeField, recordNameField, getImgSrcFromPath} from '../util/metadata';
+import {imgThumbnailWidth, imgSrcField, recordTypeField, recordNameField, getImgSrcFromPath, imgThumbnailHeight} from '../util/metadata';
 import RecordList from '../components/RecordList';
 import * as queries from '../graphQL/queries';
 
@@ -59,7 +59,7 @@ export default class ExploreContainer extends React.Component
         }
 
         return(
-            <View>
+            <View style={{flex: 1}}>
                 <ButtonGroup
                     buttons={buttons}
                     selectedIndex={this.state.selectedIndex}
@@ -106,6 +106,9 @@ function MovieListQuery(props)
                         header={props.header} 
                         records={records} 
                         handleRecordClick={props.handleRecordClick}
+                        imgWidth={imgThumbnailWidth}
+                        imgHeight={imgThumbnailHeight}
+                        withCaptions={false}
                     />
                 );
             }
@@ -149,6 +152,9 @@ function TvListQuery(props)
                         header={props.header} 
                         records={records}
                         handleRecordClick={props.handleRecordClick}
+                        imgWidth={imgThumbnailWidth}
+                        imgHeight={imgThumbnailHeight}
+                        withCaptions={false}
                     />
                 );
             }

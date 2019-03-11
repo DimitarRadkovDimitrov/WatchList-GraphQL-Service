@@ -14,7 +14,13 @@ export default class RecordDetails extends React.Component
             <View>
                 <Text>{this.props.id}</Text>
                 <Text>{this.props.title}</Text>
-                <Image source={{uri: this.props.imgSrc, width: 90, height: 125}} />
+                {
+                    this.props.imgSrc ? (
+                        <Image source={{uri: this.props.imgSrc, width: this.props.imgWidth, height: this.props.imgHeight}} />
+                    ) : (
+                        <Image source={require('../../assets/90px-No_image_available.png')} style={{width: this.props.imgWidth, height: this.props.imgHeight}} />    
+                    )
+                }
                 <Text>Popularity: {this.props.popularity}</Text>
                 <Text>Vote Average: {this.props.vote_average}</Text>
                 <Text>{this.props.description}</Text>

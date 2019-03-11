@@ -25,11 +25,21 @@ export default class RecordList extends React.Component
                 {
                     this.props.records.map((record) => { 
                         return(
-                            <View key={record.id}>                 
+                            <View key={record.id} width={this.props.imgWidth}>                 
                                 <TouchableHighlight onPress={this.handleRecordClick.bind(this, record)}>
-                                    <Image source={{uri: record[imgSrcField], width: 90, height: 125}} />    
-                                </TouchableHighlight>     
-                                <Text>{record[recordNameField]}</Text>
+                                {   
+                                    record[imgSrcField] ? (
+                                        <Image source={{uri: record[imgSrcField], width: this.props.imgWidth, height: this.props.imgHeight}} /> 
+                                    ) : (                                
+                                        <Image source={require('../../assets/90px-No_image_available.png')} style={{width: this.props.imgWidth, height: this.props.imgHeight}} />    
+                                    )
+                                }
+                                </TouchableHighlight>
+                                {
+                                    this.props.withCaptions ? (
+                                        <Text numberOfLines={1}>{record[recordNameField]}</Text>
+                                    ) : (null)
+                                } 
                             </View>
                         );
                     })
