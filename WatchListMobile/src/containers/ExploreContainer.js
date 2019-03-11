@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, ScrollView, ActivityIndicator, AppRegistry} from 'react-native';
 import {Query} from 'react-apollo';
 import {ButtonGroup} from 'react-native-elements';
-import {getImgSrcFromPath} from '../util/images';
+import {imgSrcField, recordTypeField, recordNameField, getImgSrcFromPath} from '../util/metadata';
 import RecordList from '../components/RecordList';
 import * as queries from '../graphQL/queries';
 
@@ -29,7 +29,7 @@ export default class ExploreContainer extends React.Component
     {
         this.props.navigation.navigate('RecordContainer', {
             'record': record,
-            'recordType': record['type'],
+            'recordType': record[recordTypeField],
         });
     }
 
@@ -95,8 +95,11 @@ function MovieListQuery(props)
                 }
 
                 let records = data[props.queryName];
-                records['type'] = 'movie';
-                records = assignRecordContext(records);
+                records.map((record) => {
+                    record[imgSrcField] = getImgSrcFromPath(record['poster_path']);
+                    record[recordTypeField] = "movie";
+                    record[recordNameField] = record.title;
+                });
 
                 return(
                     <RecordList 
@@ -135,8 +138,11 @@ function TvListQuery(props)
                 }
 
                 let records = data[props.queryName];
-                records['type'] = 'tvShow';
-                records = assignRecordContext(records);
+                records.map((record) => {
+                    record[imgSrcField] = getImgSrcFromPath(record['poster_path']);
+                    record[recordTypeField] = "tvShow";
+                    record[recordNameField] = record.name;
+                });
 
                 return(
                     <RecordList 
@@ -149,16 +155,6 @@ function TvListQuery(props)
         }
         </Query>
     );
-}
-
-function assignRecordContext(records)
-{
-    const recordType = records['type'];
-    records.map((record) => {
-        record['imgSrc'] = getImgSrcFromPath(record['poster_path']);
-        record['type'] = recordType;
-    });
-    return records;
 }
 
 AppRegistry.registerComponent('ExploreContainer', () => ExploreContainer);

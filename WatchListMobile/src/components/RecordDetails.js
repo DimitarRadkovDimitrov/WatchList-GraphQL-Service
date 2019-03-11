@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, Image, AppRegistry} from 'react-native';
-import RecordList from '../components/RecordList';
 
 export default class RecordDetails extends React.Component
 {
@@ -19,6 +18,7 @@ export default class RecordDetails extends React.Component
                 <Text>Popularity: {this.props.popularity}</Text>
                 <Text>Vote Average: {this.props.vote_average}</Text>
                 <Text>{this.props.description}</Text>
+                {this.props.children}
             </View>    
         );
     }

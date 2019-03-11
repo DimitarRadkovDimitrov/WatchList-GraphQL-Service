@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, AppRegistry, Image, Text, TouchableHighlight} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {imgSrcField, recordNameField} from '../util/metadata';
 
 export default class RecordList extends React.Component
 {
@@ -24,9 +25,12 @@ export default class RecordList extends React.Component
                 {
                     this.props.records.map((record) => { 
                         return(
-                            <TouchableHighlight key={record.id} onPress={this.handleRecordClick.bind(this, record)}>
-                                <Image source={{uri: record['imgSrc'], width: 90, height: 125}} />
-                            </TouchableHighlight>     
+                            <View key={record.id}>                 
+                                <TouchableHighlight onPress={this.handleRecordClick.bind(this, record)}>
+                                    <Image source={{uri: record[imgSrcField], width: 90, height: 125}} />    
+                                </TouchableHighlight>     
+                                <Text>{record[recordNameField]}</Text>
+                            </View>
                         );
                     })
                 }       
