@@ -51,8 +51,6 @@ export default class RecordContainer extends React.Component
                     id={record.id}
                     title={record.name}
                     imgSrc={record.imgSrc}
-                    imgWidth={imgThumbnailWidth}
-                    imgHeight={imgThumbnailHeight}
                     withCaptions={true}
                 />
             );
@@ -99,16 +97,12 @@ function MovieDetailsQuery(props)
                         popularity={record.popularity}
                         vote_average={record.vote_average}
                         imgSrc={imgURL}
-                        imgWidth={imgThumbnailWidth}
-                        imgHeight={imgThumbnailHeight}
                         description={record.overview}
                     >
                         <RecordList 
                             header="Cast" 
                             records={cast}
                             handleRecordClick={props.handleRecordClick}
-                            imgWidth={imgThumbnailWidth}
-                            imgHeight={imgThumbnailHeight}
                             withCaptions={true}
                         />
                     </RecordDetails>
@@ -158,16 +152,12 @@ function TvShowDetailsQuery(props)
                         popularity={record.popularity}
                         vote_average={record.vote_average}
                         imgSrc={imgURL}
-                        imgWidth={imgThumbnailWidth}
-                        imgHeight={imgThumbnailHeight}
                         description={record.overview}
                     >
                         <RecordList 
                             header="Cast" 
                             records={cast}
                             handleRecordClick={props.handleRecordClick}
-                            imgWidth={imgThumbnailWidth}
-                            imgHeight={imgThumbnailHeight}
                             withCaptions={true}
                         />
                     </RecordDetails>

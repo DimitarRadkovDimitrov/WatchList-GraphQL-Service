@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View, ScrollView, ActivityIndicator, AppRegistry} from 'react-native';
+import {Text, View, ScrollView, ActivityIndicator, StyleSheet, AppRegistry} from 'react-native';
 import {Query} from 'react-apollo';
 import {ButtonGroup} from 'react-native-elements';
-import {imgThumbnailWidth, imgSrcField, recordTypeField, recordNameField, getImgSrcFromPath, imgThumbnailHeight} from '../util/metadata';
+import {imgSrcField, recordTypeField, recordNameField, getImgSrcFromPath} from '../util/metadata';
 import RecordList from '../components/RecordList';
 import * as queries from '../graphQL/queries';
+import {height, width, padding} from '../styles/style';
 
 export default class ExploreContainer extends React.Component 
 {
@@ -59,11 +60,12 @@ export default class ExploreContainer extends React.Component
         }
 
         return(
-            <View style={{flex: 1}}>
+            <View style={styles.container}>
                 <ButtonGroup
                     buttons={buttons}
                     selectedIndex={this.state.selectedIndex}
                     onPress={this.handleSelectionChange}
+                    containerStyle={styles.buttonGroup}
                 />
                 {view}
             </View>
@@ -106,8 +108,6 @@ function MovieListQuery(props)
                         header={props.header} 
                         records={records} 
                         handleRecordClick={props.handleRecordClick}
-                        imgWidth={imgThumbnailWidth}
-                        imgHeight={imgThumbnailHeight}
                         withCaptions={false}
                     />
                 );
@@ -152,8 +152,6 @@ function TvListQuery(props)
                         header={props.header} 
                         records={records}
                         handleRecordClick={props.handleRecordClick}
-                        imgWidth={imgThumbnailWidth}
-                        imgHeight={imgThumbnailHeight}
                         withCaptions={false}
                     />
                 );
@@ -162,5 +160,19 @@ function TvListQuery(props)
         </Query>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        height: height.full,
+        width: width.full,
+    },
+    buttonGroup: {
+        marginTop: padding.md,
+        marginBottom: padding.sm,
+        marginLeft: width.quarter,
+        marginRight: width.quarter,
+    }
+});
 
 AppRegistry.registerComponent('ExploreContainer', () => ExploreContainer);
