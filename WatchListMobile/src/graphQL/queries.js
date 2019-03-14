@@ -113,3 +113,32 @@ export const onAirTvShows = gql`
         poster_path
     }
 }`;
+
+export const personById = (id) => {
+    return gql`
+    {
+        personById(id: ${id})
+        {
+            id
+            name
+            birthday
+            deathday
+            biography
+            popularity
+            profile_path
+            place_of_birth
+            movies
+            {
+                id
+                title
+                poster_path
+            }
+            tvShows
+            {
+                id
+                name
+                poster_path
+            }
+        }
+    }`
+};

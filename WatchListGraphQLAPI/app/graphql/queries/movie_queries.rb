@@ -1,5 +1,4 @@
 require "http"
-require_relative "../../models/movie"
 require_relative "../../models/serializers"
 
 module MovieQueries

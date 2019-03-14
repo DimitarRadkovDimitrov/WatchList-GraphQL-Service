@@ -1,5 +1,4 @@
 require "http"
-require_relative "../../models/person"
 require_relative "../../models/serializers"
 
 module PersonQueries
@@ -9,6 +8,18 @@ module PersonQueries
         url = "https://api.themoviedb.org/3/person/#{id}?api_key=#@@API_KEY&language=en-US"
         response = HTTP.get(url)
         return Serializers.serialize_json_object_to_type(response, Person)
+    end
+
+    def movies_by_person_id(id)
+        url = "https://api.themoviedb.org/3/person/#{id}/movie_credits?api_key=#@@API_KEY&language=en-US"
+        response = HTTP.get(url)
+        return Serializers.serialize_json_array_to_type(response, Movie, "cast")
+    end
+
+    def tv_shows_by_person_id(id)
+        url = "https://api.themoviedb.org/3/person/#{id}/tv_credits?api_key=#@@API_KEY&language=en-US"
+        response = HTTP.get(url)
+        return Serializers.serialize_json_array_to_type(response, TvShow, "cast")
     end
 
     def cast_by_movie_id(id)

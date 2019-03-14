@@ -1,5 +1,4 @@
 require "http"
-require_relative "../../models/tv_show"
 require_relative "../../models/serializers"
 
 module TvShowQueries 
