@@ -8,6 +8,17 @@ export default class RecordDetails extends React.Component
     constructor(props)
     {
         super(props);
+        this.state = {
+            displayFullDesc: false,
+        };
+        this.handleSeeMoreClick = this.handleSeeMoreClick.bind(this);
+    }
+
+    handleSeeMoreClick()
+    {
+        this.setState({
+            displayFullDesc: !this.state.displayFullDesc,
+        });
     }
 
     render()
@@ -39,7 +50,19 @@ export default class RecordDetails extends React.Component
                 <View>
                     <View style={styles.columnContainer}>
                         <Text style={styles.recordTitle}>Description</Text>
-                        <Text>{this.props.description}</Text>
+                        {
+                            this.state.displayFullDesc ? (
+                                <View>
+                                    <Text>{this.props.description}</Text>
+                                    <Text onPress={this.handleSeeMoreClick} style={styles.hyperLink}>Read Less</Text>
+                                </View>
+                            ) : (
+                                <View>
+                                    <Text numberOfLines={3}>{this.props.description}</Text>
+                                    <Text onPress={this.handleSeeMoreClick} style={styles.hyperLink}>Read More</Text>
+                                </View>
+                            )
+                        } 
                     </View>
                     {this.props.children}
                 </View>
@@ -57,13 +80,16 @@ const styles = StyleSheet.create({
         paddingRight: padding.sm,
     },
     columnContainer: {
+        flex: 1,
         flexDirection: 'column',
         paddingLeft: padding.sm,
         paddingRight: padding.sm,
     },
     rowContainer: {
+        flex: 1,
         flexDirection: 'row',
         padding: padding.sm,
+        paddingRight: padding.xl,
     },
     recordTitle: {
         color: colors.black,
@@ -73,7 +99,12 @@ const styles = StyleSheet.create({
     imgThumbNail: {
         height: scale(100),
         width: scale(75),
-    }
+    },
+    hyperLink: {
+        color: colors.blue,
+        textAlign: 'right',
+        padding: padding.xs,
+    },
 });
 
 AppRegistry.registerComponent("RecordDetails", () => RecordDetails);

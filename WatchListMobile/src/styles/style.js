@@ -2,6 +2,7 @@ import {scale, verticalScale} from 'react-native-size-matters';
 
 export const colors = {
     black: '#000000',
+    blue: '#0061ff',
 };
 
 export const width = {

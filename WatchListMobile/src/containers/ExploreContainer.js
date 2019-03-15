@@ -19,6 +19,10 @@ export default class ExploreContainer extends React.Component
         this.handleRecordClick = this.handleRecordClick.bind(this);
     }
 
+    static navigationOptions = {
+        header: null,
+    };
+
     handleSelectionChange(selectedIndex)
     {
         this.setState({
