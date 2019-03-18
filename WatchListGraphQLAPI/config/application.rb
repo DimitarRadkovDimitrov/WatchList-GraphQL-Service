@@ -31,5 +31,26 @@ module WatchListGraphqlApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.after_initialize do
+        load_dynamic_graphql_types = %q(
+            query
+            {
+                __schema
+                {
+                    queryType
+                    {
+                        name
+                    }
+                    mutationType
+                    {
+                        name
+                    }
+                }
+            }
+        )
+          
+        WatchListGraphqlApiSchema.execute(load_dynamic_graphql_types)
+    end
   end
 end
